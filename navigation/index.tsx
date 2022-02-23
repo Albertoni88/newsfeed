@@ -19,6 +19,9 @@ import TabTwoScreen from '../src/screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import i18n from '../src/config/locales';
+import { createStackNavigator } from '@react-navigation/stack';
+import News from '../src/screens/News';
+import Details from '../src/screens/Details';
 
 // export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   export default function Navigation({ colorScheme }) {
@@ -56,8 +59,26 @@ function RootNavigator({colorScheme}) {
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 // const BottomTab = createBottomTabNavigator<RootTabParamList>();
+function HomeStack() {
+  //const { t } = React.useContext(LocalizationContext);
+  //const Stack = createStackNavigator();
+  const Stack = createNativeStackNavigator();
+  return (
+    <Stack.Navigator>
+          <Stack.Screen
+              name="News"
+              component={News}
+              options={{ headerShown: false, title: i18n.t('news') }}
+              />
+          <Stack.Screen
+              name="Details"
+              component={Details}
+              options={{ headerShown: false, title: i18n.t('details') }}
+              />
+      </Stack.Navigator>
+  );
+}
 const BottomTab = createBottomTabNavigator();
-
 function BottomTabNavigator({route}) {
   const colorScheme = useColorScheme();
 
@@ -69,30 +90,18 @@ function BottomTabNavigator({route}) {
       }}>
       <BottomTab.Screen
         name="TabOne"
-        component={TabOneScreen}
+        //component={TabOneScreen}
+        component={HomeStack}
         // options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           options={({ navigation }) => ({
           title: i18n.t('news'),
-          tabBarIcon: ({ color }) => <AntDesign name="home" color={color} size = {30}/>,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+          tabBarIcon: ({ color }) => <AntDesign name="home" color={color} size = {30}/>
         })}
       />
       <BottomTab.Screen
         name="TabTwo"
         children={()=><TabTwoScreen tema={route.params.colorScheme}/>}
+        //children={()=><SettingsStack>}
         //component={TabTwoScreen}
         options={{
           title: i18n.t('settings'),

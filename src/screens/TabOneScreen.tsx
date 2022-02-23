@@ -9,6 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
   const { theme, setTheme } = useContext(ThemeContext);
+  //console.log('theme ', theme);
   // useEffect(async ()=>{
   //   var lang = await AsyncStorage.getItem('language') === 'en' ? false : true;
   //   setIsEnabled(lang);

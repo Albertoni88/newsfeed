@@ -7,10 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import useColorScheme from '../../hooks/useColorScheme';
 
 
-export default function TabTwoScreen({tema}) {
+export default function TabTwoScreen() {
 
   const { theme, setTheme } = useContext(ThemeContext);
-
   useEffect(async ()=>{
     var lang = await AsyncStorage.getItem('language') === 'en' ? false : true;
     setIsEnabled(lang);
@@ -45,7 +44,7 @@ export default function TabTwoScreen({tema}) {
       </View>
       <View style = {{ flexDirection : 'row', backgroundColor : 'grey'}}>
       {/* <Text style ={{ color : '#f5dd4b', marginHorizontal : 15, fontSize : 20}}>English</Text> */}
-      <Text style ={{ color : theme === 'dark' ? 'white' : 'black', marginHorizontal : 15, fontSize : 20}}>Light</Text>
+      <Text style ={{ color : theme === 'dark' ? 'white' : 'black', marginHorizontal : 15, fontSize : 20}}>{i18n.t('light')}</Text>
       <Switch
         trackColor={{ false: "#f4f3f4", true: "#81b0ff" }}
         thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -53,7 +52,7 @@ export default function TabTwoScreen({tema}) {
         onValueChange={setTheme}
         value={ theme === 'light' ? false : true }
       />
-      <Text style ={{ color : theme === 'dark' ? 'white' : 'black', marginHorizontal : 15, fontSize : 20}}>Dark</Text>
+      <Text style ={{ color : theme === 'dark' ? 'white' : 'black', marginHorizontal : 15, fontSize : 20}}>{i18n.t('dark')}</Text>
       {/* <Text style ={styles.title}>Dark</Text> */}
       </View>
     </View>
