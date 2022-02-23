@@ -25,8 +25,9 @@ import i18n from '../src/config/locales';
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+    >
+      <RootNavigator colorScheme = {colorScheme}/>
     </NavigationContainer>
   );
 }
@@ -38,10 +39,10 @@ import i18n from '../src/config/locales';
 // const Stack = createNativeStackNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator();
 
-function RootNavigator() {
+function RootNavigator({colorScheme}) {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={BottomTabNavigator} initialParams= {{colorScheme : colorScheme}} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
@@ -57,7 +58,7 @@ function RootNavigator() {
 // const BottomTab = createBottomTabNavigator<RootTabParamList>();
 const BottomTab = createBottomTabNavigator();
 
-function BottomTabNavigator() {
+function BottomTabNavigator({route}) {
   const colorScheme = useColorScheme();
 
   return (
@@ -91,7 +92,8 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabTwo"
-        component={TabTwoScreen}
+        children={()=><TabTwoScreen tema={route.params.colorScheme}/>}
+        //component={TabTwoScreen}
         options={{
           title: i18n.t('settings'),
           tabBarIcon: ({ color }) => <AntDesign name="setting" color={color} size = {30}/>,

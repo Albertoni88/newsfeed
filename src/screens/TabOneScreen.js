@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, TouchableOpacity, Switch} from 'react-native';
+import ThemeContext from '../context/ThemeContext';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../../types';
 import i18n from '../config/locales/index';
@@ -7,10 +8,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
+  const { theme, setTheme } = useContext(ThemeContext);
   // useEffect(async ()=>{
   //   var lang = await AsyncStorage.getItem('language') === 'en' ? false : true;
   //   setIsEnabled(lang);
-  //   console.log("asd ", lang, 'lang ', await AsyncStorage.getItem('language'));
   // },[])
   // const [isEnabled, setIsEnabled] = useState(false);
   
