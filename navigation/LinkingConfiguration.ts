@@ -8,25 +8,31 @@ import { LinkingOptions } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
 import { RootStackParamList } from '../types';
+import News from '../src/screens/News';
+import Details from '../src/screens/Details';
 
 const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
-      Root: {
-        screens: {
-          TabOne: {
-            screens: {
-              TabOneScreen: 'one',
-            },
-          },
-          TabTwo: {
-            screens: {
-              TabTwoScreen: 'two',
-            },
-          },
-        },
-      },
+      News : 'News',
+      Details : 'Details',
+      // Root: {
+      //   screens: {
+      //     TabOne: {
+      //       screens: {
+      //         //TabOneScreen: 'one',
+      //         News : 'News'
+      //       },
+      //     },
+      //     TabTwo: {
+      //       screens: {
+      //         //TabTwoScreen: 'two',
+      //         Details : 'Details'
+      //       },
+      //     },
+      //   },
+      // },
       Modal: 'modal',
       NotFound: '*',
     },
